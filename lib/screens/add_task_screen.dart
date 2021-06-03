@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter/models/task_data.dart';
 
 class AddTaskScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    String newTaskTitle;
+
     return Container(
       color: Color(0xff757575),
       child: Container(
@@ -26,9 +29,15 @@ class AddTaskScreen extends StatelessWidget {
             TextField(
               textAlign: TextAlign.center,
               autofocus: true,
+              onChanged: (newText) {
+                newTaskTitle = newText;
+              },
             ),
             FlatButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<TaskData>().addTask(newTaskTitle);
+                Navigator.pop(context);
+              },
               child: Text(
                 'ADD',
                 style: TextStyle(color: Colors.white),
